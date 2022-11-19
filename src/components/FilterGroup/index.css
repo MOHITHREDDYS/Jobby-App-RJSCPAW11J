@@ -1,0 +1,30 @@
+.horizontal-line {
+  border: none;
+  border-bottom: 2px solid #64748b;
+}
+.filter-heading {
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Roboto';
+}
+.filter-types-list {
+  padding-left: 0px;
+  list-style-type: none;
+}
+.filter-list-item {
+  display: flex;
+  align-items: center;
+}
+.checkbox-input {
+  width: 15px;
+  height: 15px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+}
+.filter-names {
+  color: #ffffff;
+  font-size: 15px;
+  font-family: 'Roboto';
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
