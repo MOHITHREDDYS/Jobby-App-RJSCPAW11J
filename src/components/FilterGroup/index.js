@@ -39,7 +39,19 @@ const salaryRangesList = [
 ]
 
 const FilterGroup = props => {
-  const {salaryType, employmentType} = props
+  const {employmentType, updateSalaryRange} = props
+
+  const onChangingSalaryRange = event => {
+    updateSalaryRange(event.target.value)
+  }
+
+  const onSelectingEmploymentType = event => {
+    if (employmentType.includes(event.target.value)) {
+      console.log(event.target.checked)
+      employmentType.append(event.target.value)
+      console.log(employmentType)
+    }
+  }
 
   return (
     <div>
@@ -52,6 +64,7 @@ const FilterGroup = props => {
               type="checkbox"
               value={eachType.employmentTypeId}
               className="checkbox-input"
+              onChange={onSelectingEmploymentType}
             />
             <label className="filter-names">{eachType.label}</label>
           </li>
@@ -61,7 +74,11 @@ const FilterGroup = props => {
       <p className="filter-heading">Salary Range</p>
       <ul className="filter-types-list">
         {salaryRangesList.map(eachType => (
-          <li key={eachType.salaryRangeId} className="filter-list-item">
+          <li
+            key={eachType.salaryRangeId}
+            className="filter-list-item"
+            onChange={onChangingSalaryRange}
+          >
             <input
               type="radio"
               value={eachType.salaryRangeId}

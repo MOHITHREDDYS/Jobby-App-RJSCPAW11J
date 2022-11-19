@@ -27,6 +27,7 @@
   text-decoration: none;
   font-family: 'Roboto';
   font-size: 18px;
+  cursor: pointer;
 }
 
 .nav-icon {
@@ -36,6 +37,7 @@
 
 .logout-desktop-button {
   display: none;
+  cursor: pointer;
 }
 .nav-item-margin {
   margin-left: 0px;

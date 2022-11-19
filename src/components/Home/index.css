@@ -36,6 +36,7 @@
   border-radius: 5px;
   margin-top: 20px;
   font-family: 'Roboto';
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

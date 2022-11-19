@@ -23,7 +23,7 @@ class AllJobsSection extends Component {
     jobsList: [],
     searchInput: '',
     salaryRange: '',
-    employmentType: '',
+    employmentType: [],
     jobsApiStatus: apiStatusList.initial,
   }
 
@@ -71,6 +71,14 @@ class AllJobsSection extends Component {
 
   onChangingSearchValue = event => {
     this.setState({searchInput: event.target.value})
+  }
+
+  onClickingSearchIcon = () => {
+    this.getAllJobs()
+  }
+
+  updateSalaryRange = salaryRange => {
+    this.setState({salaryRange}, this.getAllJobs)
   }
 
   getSuccessView = () => {
@@ -182,7 +190,11 @@ class AllJobsSection extends Component {
                 className="search-input"
                 onChange={this.onChangingSearchValue}
               />
-              <button type="button" className="search-button">
+              <button
+                type="button"
+                className="search-button"
+                onClick={this.onClickingSearchIcon}
+              >
                 <BsSearch className="search-icon" />
               </button>
             </div>
@@ -191,6 +203,7 @@ class AllJobsSection extends Component {
               <FilterGroup
                 salaryType={salaryType}
                 employmentType={employmentType}
+                updateSalaryRange={this.updateSalaryRange}
               />
             </div>
             <div className="search-jobs-list-container">
@@ -202,7 +215,11 @@ class AllJobsSection extends Component {
                   className="search-input"
                   onChange={this.onChangingSearchValue}
                 />
-                <button type="button" className="search-button">
+                <button
+                  type="button"
+                  className="search-button"
+                  onClick={this.onClickingSearchIcon}
+                >
                   <BsSearch className="search-icon" />
                 </button>
               </div>

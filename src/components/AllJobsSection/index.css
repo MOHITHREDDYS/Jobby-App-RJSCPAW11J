@@ -23,6 +23,8 @@
   }
   .search-jobs-list-container {
     width: 70%;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -44,7 +46,7 @@
     display: none;
   }
   .search-lg-container {
-    width: 100%;
+    width: 60%;
     display: flex;
     align-items: center;
     border: 1px solid #64748b;
@@ -69,6 +71,7 @@
   border: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  cursor: pointer;
 }
 .search-icon {
   color: #f8fafc;
@@ -199,4 +202,11 @@
   padding: 8px 20px;
   border-radius: 5px;
   border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .jobs-failure-container {
+    flex: 1;
+    justify-content: center;
+  }
 }
