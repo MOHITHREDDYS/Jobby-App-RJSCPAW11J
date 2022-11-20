@@ -62,9 +62,9 @@ const FilterGroup = props => {
     <div>
       <hr className="horizontal-line" />
       <h1 className="filter-heading">Type of employment</h1>
-      <div className="filter-types-list">
+      <ul className="filter-types-list">
         {employmentTypesList.map(eachType => (
-          <div key={eachType.employmentTypeId} className="filter-list-item">
+          <li key={eachType.employmentTypeId} className="filter-list-item">
             <input
               type="checkbox"
               value={eachType.employmentTypeId}
@@ -72,14 +72,14 @@ const FilterGroup = props => {
               onChange={onSelectingEmploymentType}
             />
             <label className="filter-names">{eachType.label}</label>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       <hr className="horizontal-line" />
       <h1 className="filter-heading">Salary Range</h1>
-      <div className="filter-types-list">
+      <ul className="filter-types-list">
         {salaryRangesList.map(eachType => (
-          <div
+          <li
             key={eachType.salaryRangeId}
             className="filter-list-item"
             onChange={onChangingSalaryRange}
@@ -91,9 +91,9 @@ const FilterGroup = props => {
               name="salary"
             />
             <label className="filter-names">{eachType.label}</label>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }
