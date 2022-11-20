@@ -21,6 +21,10 @@ class AllJobsSection extends Component {
     this.getProfile()
   }
 
+  onClickingRetry = () => {
+    this.getProfile()
+  }
+
   getProfile = async () => {
     this.setState({profileApiStatus: apiStatusList.loading})
 
@@ -66,14 +70,18 @@ class AllJobsSection extends Component {
   }
 
   getLoadingView = () => (
-    <div className="profile-loader-container" data-testid="loader">
+    <div className="profile-loader-container" testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
     </div>
   )
 
   getFailureView = () => (
     <div className="profile-failure-container">
-      <button type="button" className="profile-retry-button">
+      <button
+        type="button"
+        className="profile-retry-button"
+        onClick={this.onClickingRetry}
+      >
         Retry
       </button>
     </div>

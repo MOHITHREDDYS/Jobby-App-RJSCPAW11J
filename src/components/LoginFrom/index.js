@@ -14,6 +14,10 @@ class LoginForm extends Component {
     history.replace('/')
   }
 
+  onSubmitFailure = errorMsg => {
+    this.setState({errorMsg, showSubmitError: true})
+  }
+
   onSubmitForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
@@ -29,9 +33,9 @@ class LoginForm extends Component {
     const data = await response.json()
 
     if (response.ok === true) {
-      this.onSubmitSuccess(data.jwt_token)
+      return this.onSubmitSuccess(data.jwt_token)
     }
-    return this.setState({errorMsg: data.error_msg, showSubmitError: true})
+    return this.onSubmitFailure(data.error_msg)
   }
 
   onChangingUsernameInput = event => {

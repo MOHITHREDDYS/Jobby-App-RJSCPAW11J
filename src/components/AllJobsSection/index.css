@@ -87,9 +87,12 @@
   background-color: #272727;
   border-radius: 10px;
   padding: 20px 15px;
+  margin-bottom: 20px;
+}
+.job-link-item {
   font-family: 'Roboto';
   color: #f1f5f9;
-  margin-bottom: 20px;
+  text-decoration: none;
 }
 .item-logo-name-container {
   display: flex;
@@ -121,6 +124,11 @@
   font-size: 16px;
   margin: 0px;
   margin-left: 10px;
+}
+@media screen and (min-width: 768px) {
+  .job-list-item {
+    padding: 25px;
+  }
 }
 /*##########################################################*/
 .item-package-container {
@@ -169,6 +177,12 @@
 }
 .job-list-item-description {
   font-size: 13px;
+  line-height: 1.5;
+}
+@media screen and (min-width: 768px) {
+  .job-list-item-description {
+    line-height: 2;
+  }
 }
 /*#########################failure################################*/
 .jobs-failure-container {
@@ -202,6 +216,7 @@
   padding: 8px 20px;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

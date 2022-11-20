@@ -1,0 +1,26 @@
+.not-found-main-container {
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+}
+.not-found-container {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  max-width: 1135px;
+}
+
+@media screen and (min-width: 768px) {
+  .not-found-container {
+    padding: 10px 25px;
+  }
+  .not-found-heading {
+    font-size: 40px;
+    color: #ffffff;
+    text-align: center;
+  }
+}

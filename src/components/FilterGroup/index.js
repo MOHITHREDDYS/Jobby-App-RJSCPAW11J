@@ -39,27 +39,32 @@ const salaryRangesList = [
 ]
 
 const FilterGroup = props => {
-  const {employmentType, updateSalaryRange} = props
+  const {employmentType, updateSalaryRange, updateEmploymentType} = props
 
   const onChangingSalaryRange = event => {
     updateSalaryRange(event.target.value)
   }
 
   const onSelectingEmploymentType = event => {
-    if (employmentType.includes(event.target.value)) {
-      console.log(event.target.checked)
-      employmentType.append(event.target.value)
-      console.log(employmentType)
+    if (event.target.checked) {
+      if (employmentType.includes(event.target.value) !== true) {
+        employmentType.push(event.target.value)
+      }
     }
+    if (event.target.checked === false) {
+      const a = employmentType.indexOf(event.target.value)
+      employmentType.splice(a, 1)
+    }
+    updateEmploymentType(employmentType)
   }
 
   return (
     <div>
       <hr className="horizontal-line" />
-      <p className="filter-heading">Type of employment</p>
-      <ul className="filter-types-list">
+      <h1 className="filter-heading">Type of employment</h1>
+      <div className="filter-types-list">
         {employmentTypesList.map(eachType => (
-          <li key={eachType.employmentTypeId} className="filter-list-item">
+          <div key={eachType.employmentTypeId} className="filter-list-item">
             <input
               type="checkbox"
               value={eachType.employmentTypeId}
@@ -67,14 +72,14 @@ const FilterGroup = props => {
               onChange={onSelectingEmploymentType}
             />
             <label className="filter-names">{eachType.label}</label>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <hr className="horizontal-line" />
-      <p className="filter-heading">Salary Range</p>
-      <ul className="filter-types-list">
+      <h1 className="filter-heading">Salary Range</h1>
+      <div className="filter-types-list">
         {salaryRangesList.map(eachType => (
-          <li
+          <div
             key={eachType.salaryRangeId}
             className="filter-list-item"
             onChange={onChangingSalaryRange}
@@ -86,9 +91,9 @@ const FilterGroup = props => {
               name="salary"
             />
             <label className="filter-names">{eachType.label}</label>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }

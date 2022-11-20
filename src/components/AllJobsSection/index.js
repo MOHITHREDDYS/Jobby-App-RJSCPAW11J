@@ -4,6 +4,7 @@ import {AiFillStar} from 'react-icons/ai'
 import {MdLocationOn} from 'react-icons/md'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
 
 import Header from '../Header'
 import ProfileSection from '../ProfileSection'
@@ -31,12 +32,18 @@ class AllJobsSection extends Component {
     this.getAllJobs()
   }
 
+  onClickingRetry = () => {
+    this.getAllJobs()
+  }
+
   getAllJobs = async () => {
     const {searchInput, salaryRange, employmentType} = this.state
+    const employmentString = employmentType.join(',')
+
     this.setState({jobsApiStatus: apiStatusList.loading})
 
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/jobs?employment_type=${employmentType}&minimum_package=${salaryRange}&search=${searchInput}`
+    const url = `https://apis.ccbp.in/jobs?employment_type=${employmentString}&minimum_package=${salaryRange}&search=${searchInput}`
 
     const options = {
       method: 'GET',
@@ -81,65 +88,88 @@ class AllJobsSection extends Component {
     this.setState({salaryRange}, this.getAllJobs)
   }
 
+  updateEmploymentType = employmentType => {
+    this.setState({employmentType}, this.getAllJobs)
+  }
+
   getSuccessView = () => {
     const {jobsList} = this.state
+    if (jobsList.length > 0) {
+      return (
+        <ul className="jobs-list-container">
+          {jobsList.map(job => {
+            const {
+              companyLogoUrl,
+              id,
+              title,
+              jobDescription,
+              rating,
+              location,
+              employmentType,
+              packagePerAnnum,
+            } = job
+            return (
+              <li key={id} className="job-list-item">
+                <Link to={`/jobs/${id}`} className="job-link-item">
+                  <div className="item-logo-name-container">
+                    <img
+                      src={companyLogoUrl}
+                      alt="company logo"
+                      className="company-logo"
+                    />
+                    <div>
+                      <h1 className="job-list-item-title">{title}</h1>
+                      <div className="item-star-rating-container">
+                        <AiFillStar className="job-list-item-star" />
+                        <p className="job-list-item-rating">{rating}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="item-package-container">
+                    <div className="item-location-employment-container">
+                      <div className="item-location-container">
+                        <MdLocationOn className="job-list-item-location-icon" />
+                        <p className="job-list-item-location">{location}</p>
+                      </div>
+                      <div className="item-employment-container">
+                        <BsFillBriefcaseFill className="job-list-item-briefcase-icon" />
+                        <p className="job-list-item-employment-type">
+                          {employmentType}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="job-list-item-package">{packagePerAnnum}</p>
+                  </div>
+                  <hr className="horizontal-line" />
+                  <h1 className="job-list-item-description-title">
+                    Description
+                  </h1>
+                  <p className="job-list-item-description">{jobDescription}</p>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )
+    }
 
     return (
-      <ul className="jobs-list-container">
-        {jobsList.map(job => {
-          const {
-            companyLogoUrl,
-            id,
-            title,
-            jobDescription,
-            rating,
-            location,
-            employmentType,
-            packagePerAnnum,
-          } = job
-          return (
-            <li key={id} className="job-list-item">
-              <div className="item-logo-name-container">
-                <img
-                  src={companyLogoUrl}
-                  alt="company logo"
-                  className="company-logo"
-                />
-                <div>
-                  <p className="job-list-item-title">{title}</p>
-                  <div className="item-star-rating-container">
-                    <AiFillStar className="job-list-item-star" />
-                    <p className="job-list-item-rating">{rating}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="item-package-container">
-                <div className="item-location-employment-container">
-                  <div className="item-location-container">
-                    <MdLocationOn className="job-list-item-location-icon" />
-                    <p className="job-list-item-location">{location}</p>
-                  </div>
-                  <div className="item-employment-container">
-                    <BsFillBriefcaseFill className="job-list-item-briefcase-icon" />
-                    <p className="job-list-item-employment-type">
-                      {employmentType}
-                    </p>
-                  </div>
-                </div>
-                <p className="job-list-item-package">{packagePerAnnum}</p>
-              </div>
-              <hr className="horizontal-line" />
-              <p className="job-list-item-description-title">Description</p>
-              <p className="job-list-item-description">{jobDescription}</p>
-            </li>
-          )
-        })}
-      </ul>
+      <div className="jobs-failure-container">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+          alt="no jobs"
+          className="jobs-failure-image"
+        />
+        <h1 className="jobs-failure-heading">No Jobs Found</h1>
+        <p className="jobs-failure-description">
+          We could not find any jobs. Try other filters.
+        </p>
+      </div>
     )
   }
 
   getLoadingView = () => (
-    <div className="profile-loader-container" data-testid="loader">
+    <div className="profile-loader-container" testid="loader">
       <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
     </div>
   )
@@ -155,7 +185,11 @@ class AllJobsSection extends Component {
       <p className="jobs-failure-description">
         We cannot seem to find the page you are looking for.
       </p>
-      <button type="button" className="jobs-failure-retry-button">
+      <button
+        type="button"
+        className="jobs-failure-retry-button"
+        onClick={this.onClickingRetry}
+      >
         Retry
       </button>
     </div>
@@ -194,6 +228,7 @@ class AllJobsSection extends Component {
                 type="button"
                 className="search-button"
                 onClick={this.onClickingSearchIcon}
+                testid="searchButton"
               >
                 <BsSearch className="search-icon" />
               </button>
@@ -204,6 +239,7 @@ class AllJobsSection extends Component {
                 salaryType={salaryType}
                 employmentType={employmentType}
                 updateSalaryRange={this.updateSalaryRange}
+                updateEmploymentType={this.updateEmploymentType}
               />
             </div>
             <div className="search-jobs-list-container">
@@ -219,6 +255,7 @@ class AllJobsSection extends Component {
                   type="button"
                   className="search-button"
                   onClick={this.onClickingSearchIcon}
+                  testid="searchButton"
                 >
                   <BsSearch className="search-icon" />
                 </button>
