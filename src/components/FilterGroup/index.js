@@ -66,12 +66,15 @@ const FilterGroup = props => {
         {employmentTypesList.map(eachType => (
           <li key={eachType.employmentTypeId} className="filter-list-item">
             <input
+              id={eachType.employmentTypeId}
               type="checkbox"
               value={eachType.employmentTypeId}
               className="checkbox-input"
               onChange={onSelectingEmploymentType}
             />
-            <label className="filter-names">{eachType.label}</label>
+            <label htmlFor={eachType.employmentTypeId} className="filter-names">
+              {eachType.label}
+            </label>
           </li>
         ))}
       </ul>
@@ -86,11 +89,14 @@ const FilterGroup = props => {
           >
             <input
               type="radio"
+              id={eachType.salaryRangeId}
               value={eachType.salaryRangeId}
               className="checkbox-input"
               name="salary"
             />
-            <label className="filter-names">{eachType.label}</label>
+            <label htmlFor={eachType.salaryRangeId} className="filter-names">
+              {eachType.label}
+            </label>
           </li>
         ))}
       </ul>
